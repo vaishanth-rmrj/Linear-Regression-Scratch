@@ -17,9 +17,9 @@ class LinearRegressionModel:
             # using cost func's formula to compute the gradients wrt to W
             updated_weights = self.weights - self.lr * self.compute_grad(self.weights, X, y)
 
-            if iteration % 500 == 1:
+            if iteration % 80 == 1:
                 loss = self.cost_func(updated_weights, X, y)
-                print("Loss from cost function: {}, Weights: {}".format(loss, updated_weights))
+                print("Loss from cost function: {}, Weights: {}  Gradidents: {}".format(loss, updated_weights, self.compute_grad(self.weights, X, y)))
             
             # if the concurrent weigts are close stop updating
             # if (updated_weights[0]- self.weights[0])**2 + (updated_weights[1] - self.weights[1])**2 <= pow(10,-6):                
@@ -40,7 +40,7 @@ class LinearRegressionModel:
         y_pred = self.predict(W, X)
 
         # mean squared error
-        cost = (0.5*self.num_samples) * np.sum(np.square(y_pred - np.array(y)))
+        cost = np.sum(np.square(y_pred - np.array(y))) / (2*self.num_samples)
 
         return cost
     
